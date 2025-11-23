@@ -1,0 +1,120 @@
+:root {
+  --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    -system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Light theme defaults */
+  --color-bg: #f5f5f7;
+  --color-bg-elevated: #ffffff;
+  --color-text: #111827;
+  --color-subtle-text: #6b7280;
+  --color-accent: #2563eb;
+  --color-accent-soft: rgba(37, 99, 235, 0.12);
+  --color-border: #e5e7eb;
+
+  --board-light: #f0d9b5;
+  --board-dark: #b58863;
+  --board-highlight: #fbbf24;
+  --board-legal-move: rgba(16, 185, 129, 0.4);
+  --board-last-move: rgba(37, 99, 235, 0.25);
+
+  /* Lock piece colors so they remain black glyphs on the board in all themes.
+     Board background provides contrast; UI theme does not affect piece color. */
+  --piece-white: #111827;
+  --piece-black: #111827;
+
+  --btn-bg: #e5e7eb;
+  --btn-bg-hover: #d1d5db;
+  --btn-bg-primary: #2563eb;
+  --btn-bg-primary-hover: #1d4ed8;
+  --btn-text: #111827;
+  --btn-text-primary: #ffffff;
+
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --transition-fast: 0.18s ease-out;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #020817;
+    --color-bg-elevated: #020817;
+    --color-text: #e5e7eb;
+    --color-subtle-text: #9ca3af;
+    --color-accent: #60a5fa;
+    --color-accent-soft: rgba(96, 165, 250, 0.14);
+    --color-border: #111827;
+
+    /* Board colors intentionally NOT overridden:
+       keep light-theme board palette constant across modes. */
+
+    /* Do not override piece colors: keep them constant (black glyphs). */
+
+    --btn-bg: #111827;
+    --btn-bg-hover: #1f2937;
+    --btn-bg-primary: #2563eb;
+    --btn-bg-primary-hover: #1d4ed8;
+    --btn-text: #e5e7eb;
+    --btn-text-primary: #ffffff;
+
+    color-scheme: dark;
+  }
+}
+
+/* Explicit theme classes for overrides */
+
+html.theme-light {
+  --color-bg: #f5f5f7;
+  --color-bg-elevated: #ffffff;
+  --color-text: #111827;
+  --color-subtle-text: #6b7280;
+  --color-accent: #2563eb;
+  --color-accent-soft: rgba(37, 99, 235, 0.12);
+  --color-border: #e5e7eb;
+
+  --board-light: #f0d9b5;
+  --board-dark: #b58863;
+  --board-highlight: #fbbf24;
+  --board-legal-move: rgba(16, 185, 129, 0.4);
+  --board-last-move: rgba(37, 99, 235, 0.25);
+
+  /* Lock piece glyph colors globally to black for all themes. */
+  --piece-white: #111827;
+  --piece-black: #111827;
+
+  --btn-bg: #e5e7eb;
+  --btn-bg-hover: #d1d5db;
+  --btn-bg-primary: #2563eb;
+  --btn-bg-primary-hover: #1d4ed8;
+  --btn-text: #111827;
+  --btn-text-primary: #ffffff;
+
+  color-scheme: light;
+}
+
+html.theme-dark {
+  --color-bg: #020817;
+  --color-bg-elevated: #020817;
+  --color-text: #e5e7eb;
+  --color-subtle-text: #9ca3af;
+  --color-accent: #60a5fa;
+  --color-accent-soft: rgba(96, 165, 250, 0.14);
+  --color-border: #111827;
+
+  /* Board colors intentionally NOT overridden:
+     keep light-theme board palette constant across modes. */
+
+  /* Do not override piece colors here either: inherit constant black glyph color. */
+
+  --btn-bg: #111827;
+  --btn-bg-hover: #1f2937;
+  --btn-bg-primary: #2563eb;
+  --btn-bg-primary-hover: #1d4ed8;
+  --btn-text: #e5e7eb;
+  --btn-text-primary: #ffffff;
+
+  color-scheme: dark;
+}
+

@@ -1,0 +1,450 @@
+/* Ensure chess pieces keep a constant dark glyph color across all themes */
+.chess-piece {
+  color: var(--piece-black);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+#app-root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-subtle-text);
+}
+
+.app-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.9fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Board container: always centered in its section */
+.board-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#board-container {
+  width: min(100%, 560px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  background-color: var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Individual squares */
+.chess-square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.6rem, 3.2vw, 2.7rem);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transition-fast),
+    box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.chess-square.light {
+  background-color: var(--board-light);
+}
+
+.chess-square.dark {
+  background-color: var(--board-dark);
+}
+
+.chess-square.highlight-selected {
+  box-shadow: inset 0 0 0 2px var(--board-highlight);
+}
+
+.chess-square.highlight-legal::after {
+  content: "";
+  width: 26%;
+  height: 26%;
+  border-radius: 999px;
+  background-color: var(--board-legal-move);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.28);
+}
+
+.chess-square.highlight-last-move {
+  box-shadow: inset 0 0 0 2px var(--board-last-move);
+}
+
+/* Pieces as text-based icons for clarity and performance */
+.chess-piece {
+  z-index: 1;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Side panel styling */
+.side-panel {
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 12px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.side-panel section h2 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-subtle-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.controls-section,
+.status-section,
+.history-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.btn-group {
+  display: inline-flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  transition: background-color var(--transition-fast),
+    color var(--transition-fast), transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn-sm {
+  padding: 4px 9px;
+  font-size: 0.78rem;
+}
+
+.btn-primary {
+  background-color: var(--btn-bg-primary);
+  color: var(--btn-text-primary);
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--btn-bg-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-bg-primary-hover);
+}
+
+.btn.active {
+  background-color: var(--color-accent);
+  color: var(--btn-text-primary);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+
+/* Selects */
+select {
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  font-size: 0.82rem;
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+}
+
+/* Status & history */
+.status-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.status-text.busy {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.status-sub {
+  font-size: 0.78rem;
+  color: var(--color-subtle-text);
+}
+
+.move-history-list {
+  list-style: decimal;
+  margin: 2px 0 0;
+  padding-left: 20px;
+  font-size: 0.78rem;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* Scrollbar minimal styling */
+.move-history-list::-webkit-scrollbar {
+  width: 4px;
+}
+.move-history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.move-history-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 900px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    order: 2;
+  }
+
+  .board-section {
+    order: 1;
+  }
+
+  #board-container {
+    width: min(100%, 86vw);
+  }
+}
+
+@media (max-width: 540px) {
+  #app-root {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .app-title {
+    font-size: 1.25rem;
+  }
+
+  .side-panel {
+    padding: 10px;
+  }
+
+  #board-container {
+    width: min(100%, 94vw);
+  }
+}
+
+/* Game End Modal */
+.game-end-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  pointer-events: none;
+}
+
+.game-end-modal.game-end-modal-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.game-end-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.game-end-modal-content {
+  position: relative;
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform var(--transition-fast);
+  z-index: 1;
+}
+
+.game-end-modal.game-end-modal-visible .game-end-modal-content {
+  transform: scale(1);
+}
+
+.game-end-icon {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 16px;
+  animation: modalIconPop 0.4s ease-out;
+}
+
+@keyframes modalIconPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.game-end-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--color-text);
+}
+
+.game-end-message {
+  font-size: 1rem;
+  color: var(--color-subtle-text);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.game-end-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-end-actions .btn {
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+}
+
+/* Modal variants */
+.game-end-modal-victory .game-end-title {
+  color: #10b981;
+}
+
+.game-end-modal-defeat .game-end-title {
+  color: #ef4444;
+}
+
+.game-end-modal-draw .game-end-title {
+  color: var(--color-accent);
+}
+
+/* Responsive modal */
+@media (max-width: 540px) {
+  .game-end-modal-content {
+    padding: 24px;
+    max-width: 90%;
+  }
+
+  .game-end-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .game-end-title {
+    font-size: 1.5rem;
+  }
+
+  .game-end-message {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .game-end-actions {
+    flex-direction: column;
+  }
+
+  .game-end-actions .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+

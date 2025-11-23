@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kilo Polaris Chess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Modern vanilla JS chess vs computer with 5 difficulty levels."
+    />
+    <link rel="stylesheet" href="styles/theme.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+  </head>
+  <body>
+    <div id="app-root">
+      <header class="app-header">
+        <h1 class="app-title">Kilo Polaris Chess</h1>
+        <div class="theme-toggle">
+          <label for="theme-select">Theme:</label>
+          <select id="theme-select" aria-label="Theme selection">
+            <option value="system" selected>System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <section class="board-section" aria-label="Chess board">
+          <div id="board-container"></div>
+        </section>
+
+        <aside class="side-panel" aria-label="Game controls and status">
+          <section class="controls-section">
+            <h2>Game Settings</h2>
+            <div class="control-group">
+              <label>Play as:</label>
+              <div class="btn-group" id="color-choice">
+                <button data-color="white" class="btn btn-sm active">White</button>
+                <button data-color="black" class="btn btn-sm">Black</button>
+                <button data-color="random" class="btn btn-sm">
+                  Random
+                </button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label for="difficulty-select">Computer strength:</label>
+              <select id="difficulty-select">
+                <option value="1">Level 1 - Very Easy</option>
+                <option value="2">Level 2 - Easy</option>
+                <option value="3" selected>Level 3 - Medium</option>
+                <option value="4">Level 4 - Hard</option>
+                <option value="5">Level 5 - Very Hard</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="thinking-time">Thinking Time (s):</label>
+              <input type="number" id="thinking-time" value="10" min="1" max="60" style="width: 60px; padding: 4px;">
+            </div>
+
+            <div class="control-group">
+              <button id="new-game-btn" class="btn btn-primary">
+                New Game
+              </button>
+            </div>
+          </section>
+
+          <section class="status-section">
+            <h2>Status</h2>
+            <div id="status-text" class="status-text">
+              Initialize a new game to start.
+            </div>
+            <div id="turn-indicator" class="status-sub"></div>
+            <div id="last-move-indicator" class="status-sub"></div>
+          </section>
+
+          <section class="history-section" aria-label="Move history">
+            <h2>Move History</h2>
+            <ol id="move-history" class="move-history-list"></ol>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <!-- Game End Modal Container -->
+    <div id="game-end-modal-container"></div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
+
